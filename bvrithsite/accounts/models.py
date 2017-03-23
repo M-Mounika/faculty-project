@@ -5,7 +5,6 @@ from django.db import models
 from django.db import models
 from django.utils import timezone
 
-
 class Student(models.Model):
     student = models.ForeignKey('auth.User')
     name = models.CharField(max_length=200)
@@ -21,6 +20,23 @@ class Student(models.Model):
         self.updated_date = timezone.now()
         self.save()
 
+    def __str__(self):
+        return self.name
+
+class Faculty(models.Model):
+    lecturer = models.ForeignKey('auth.User')
+    name = models.CharField(max_length=200)
+    subject = models.CharField(max_length=200)
+    salary = models.IntegerField()
+    year = models.IntegerField()
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    updated_date = models.DateTimeField(
+            blank=True, null=True)
+
+    def update(self):
+        self.updated_date = timezone.now()
+        self.save()
 
     def __str__(self):
         return self.name
